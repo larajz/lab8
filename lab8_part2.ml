@@ -176,12 +176,12 @@ module IntStack : (STACK with type element = IntSerialize.t) =
    a way that the modules are properly abstracted but can still be
    used to construct and manipulate stacks? *)
 
-module IntStringSerialize =
+module IntStringSerialize : (SERIALIZE with type t = int * string) =
 struct
   type t = (int * string)
   let serialize (n, s) =
     "(" ^ string_of_int n ^ ",'" ^ s ^ "')"
 end ;;
 
-module IntStringStack =
+module IntStringStack : STACK with type element = IntStringSerialize.t =
   MakeStack(IntStringSerialize) ;;
